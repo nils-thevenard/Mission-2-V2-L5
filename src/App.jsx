@@ -1,20 +1,14 @@
-import "./App.css";
 import { useState } from "react";
+import "./index.css";
 
-const ApiKey = "e093b27ea1e64423807fbb02d1e50f59";
-const AzureEndpoint = "https://thevenardmission2.cognitiveservices.azure.com/";
-
-// const ApiKey = import.meta.env.REACT_APP_APIKEY;
-// const AzureEndpoint = import.meta.env.REACT_APP_ENDPOINT_URL;
+//sensitive info such as the key is stored ina .env file to avoid being read in the main code
+const ApiKey = import.meta.env.VITE_APIKEY;
 
 export default function App() {
-  //in React we use "hooks" like setState to define the state of changing variables.
-  //We can leave the variable empty or we can define it an initial value
   //here, we leave data empty because we haven't retrieved it yet, but we will define the html <input value={image} />
   const [data, setData] = useState();
-  const [image, setImage] = useState(
-    "https://www.toyota.co.nz/globalassets/new-vehicles/camry/2021/camry-zr-axhzr-nm1-axrzr-nm1/clear-cuts/updated-clear-cuts/camry-zr-eclipse.png"
-  );
+  const [caption, setCaption] = useState();
+  const [image, setImage] = useState();
 
   //When the user enters something into the input field, we will monitor this and update the "image" variable using setImage
   const handleOnChange = (e) => {
@@ -45,37 +39,47 @@ export default function App() {
       //this url outlines what data we are requesting to be sent back, you can add more such as "denseCaptions"
       //check the Azure Analyze API documentation for the options
       const response = await fetch(
-        `${AzureEndpoint}computervision/imageanalysis:analyze?api-version=2023-02-01-preview&features=tags,caption,denseCaptions,objects`,
+        `https://thevenardmission2.cognitiveservices.azure.com/computervision/imageanalysis:analyze?api-version=2023-02-01-preview&features=tags,caption`,
         fetchOptions
       );
       //we need to parse the data with the .json() so we can do something with it
       const parsedData = await response.json();
       //setData so we can now call the parsedData as a variable called 'data' as defined in setData useState
       setData(parsedData);
-      //by checking the console we can see the raw json data and structure and confirm we got a response
-      //this is also good to reference and make it easier when writing the html to display it,
-      //but we should remove it and ideally use better tools to view it after confirming operation as we could forget to remove it
       console.log(parsedData);
+      setCaption("This is " + parsedData.captionResult.text);
     } catch (error) {
       console.error("There is an error during fetch:", error);
     }
   };
-  // console.log(data.captionResult.text);
 
   return (
-    <div className="App">
-      <h1>How to call from Azure API example</h1>
-      <div className="inputs">
-        <input
-          className="Input"
-          placeholder="Enter image URL"
-          onChange={handleOnChange}
-          value={image}
-        />
-        <button className="Button" onClick={onButtonClick}>
-          Run Service
-        </button>
-        <h1>{data.captionResult.text}</h1>
+    <div class=" font-mono flex flex-col bg-gradient-to-r from-cyan-500 to-blue-500 h-screen">
+      <div class="flex justify-center ">
+        <div class="flex flex-col">
+          <h1 class="p-10 flex justify-center text-2xl">Turners Cars</h1>
+          <p1 class="pb-10">
+            Enter an image URL of your car below and we will provide a
+            description:
+          </p1>
+          <div class="flex justify-center">
+            <input
+              class="pb-1 w-1/5 flex justify-center"
+              placeholder="image URL"
+              onChange={handleOnChange}
+              value={image}
+            />
+          </div>
+          <div class="flex justify-center p-10">
+            {/* shows the image when input into the search bar */}
+            <img src={image} class="w-1/3 rounded "></img>{" "}
+          </div>
+          <button class="pb-10" onClick={onButtonClick}>
+            Search
+          </button>
+          {/* displays the captionResult */}
+          <h1 class="flex justify-center"> {caption}</h1>
+        </div>
       </div>
     </div>
   );
