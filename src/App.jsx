@@ -1,11 +1,10 @@
 import { useState } from "react";
 import "./index.css";
 
+//sensitive info such as the key is stored ina .env file to avoid being read in the main code
 const ApiKey = import.meta.env.VITE_APIKEY;
 
 export default function App() {
-  //in React we use "hooks" like setState to define the state of changing variables.
-  //We can leave the variable empty or we can define it an initial value
   //here, we leave data empty because we haven't retrieved it yet, but we will define the html <input value={image} />
   const [data, setData] = useState();
   const [caption, setCaption] = useState();
@@ -47,9 +46,6 @@ export default function App() {
       const parsedData = await response.json();
       //setData so we can now call the parsedData as a variable called 'data' as defined in setData useState
       setData(parsedData);
-      //by checking the console we can see the raw json data and structure and confirm we got a response
-      //this is also good to reference and make it easier when writing the html to display it,
-      //but we should remove it and ideally use better tools to view it after confirming operation as we could forget to remove it
       console.log(parsedData);
       setCaption("This is " + parsedData.captionResult.text);
     } catch (error) {
