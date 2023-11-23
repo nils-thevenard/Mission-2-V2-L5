@@ -12,9 +12,8 @@ export default function App() {
   //We can leave the variable empty or we can define it an initial value
   //here, we leave data empty because we haven't retrieved it yet, but we will define the html <input value={image} />
   const [data, setData] = useState();
-  const [image, setImage] = useState(
-    "https://www.toyota.co.nz/globalassets/new-vehicles/camry/2021/camry-zr-axhzr-nm1-axrzr-nm1/clear-cuts/updated-clear-cuts/camry-zr-eclipse.png"
-  );
+  const [caption, setCaption] = useState();
+  const [image, setImage] = useState();
 
   //When the user enters something into the input field, we will monitor this and update the "image" variable using setImage
   const handleOnChange = (e) => {
@@ -56,11 +55,11 @@ export default function App() {
       //this is also good to reference and make it easier when writing the html to display it,
       //but we should remove it and ideally use better tools to view it after confirming operation as we could forget to remove it
       console.log(parsedData);
+      setCaption(data.captionResult.text);
     } catch (error) {
       console.error("There is an error during fetch:", error);
     }
   };
-  // console.log(data.captionResult.text);
 
   return (
     <div className="App">
@@ -75,7 +74,7 @@ export default function App() {
         <button className="Button" onClick={onButtonClick}>
           Run Service
         </button>
-        <h1>{data.captionResult.text}</h1>
+        <h1>{caption}</h1>
       </div>
     </div>
   );
