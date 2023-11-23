@@ -72,7 +72,7 @@ export default function App() {
           </div>
           <div class="flex justify-center p-10">
             {/* shows the image when input into the search bar */}
-            <img src={image} class="w-1/6 rounded "></img>{" "}
+            <img src={image} class="w-1/3 rounded "></img>{" "}
           </div>
           <button class="pb-10" onClick={onButtonClick}>
             Search
