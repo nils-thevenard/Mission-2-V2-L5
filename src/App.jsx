@@ -1,5 +1,5 @@
-import "./App.css";
 import { useState } from "react";
+import "./index.css";
 
 const ApiKey = "e093b27ea1e64423807fbb02d1e50f59";
 const AzureEndpoint = "https://thevenardmission2.cognitiveservices.azure.com/";
@@ -55,26 +55,33 @@ export default function App() {
       //this is also good to reference and make it easier when writing the html to display it,
       //but we should remove it and ideally use better tools to view it after confirming operation as we could forget to remove it
       console.log(parsedData);
-      setCaption(data.captionResult.text);
+      setCaption("This is " + data.captionResult.text);
     } catch (error) {
       console.error("There is an error during fetch:", error);
     }
   };
 
   return (
-    <div className="App">
-      <h1>How to call from Azure API example</h1>
-      <div className="inputs">
-        <input
-          className="Input"
-          placeholder="Enter image URL"
-          onChange={handleOnChange}
-          value={image}
-        />
-        <button className="Button" onClick={onButtonClick}>
-          Run Service
-        </button>
-        <h1>{caption}</h1>
+    <div class=" font-mono flex flex-col bg-gradient-to-r from-cyan-500 to-blue-500 h-screen">
+      <div class="flex justify-center ">
+        <div class="flex flex-col">
+          <h1 class="p-10 flex justify-center text-2xl">Turners Cars</h1>
+          <p1 class="p-10">
+            Enter an image URL of your car below and we will provide a
+            description:
+          </p1>
+          <input
+            class="p-10"
+            className="Input"
+            placeholder="image URL"
+            onChange={handleOnChange}
+            value={image}
+          />
+          <button class="p-10" onClick={onButtonClick}>
+            Search
+          </button>
+          <h1 className="Result"> {caption}</h1>
+        </div>
       </div>
     </div>
   );
