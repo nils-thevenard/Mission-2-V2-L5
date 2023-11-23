@@ -1,11 +1,7 @@
 import { useState } from "react";
 import "./index.css";
 
-const ApiKey = "e093b27ea1e64423807fbb02d1e50f59";
-// const AzureEndpoint = "https://thevenardmission2.cognitiveservices.azure.com/";
-
-// const ApiKey = import.meta.env.REACT_APP_APIKEY;
-// const AzureEndpoint = import.meta.env.REACT_APP_ENDPOINT_URL;
+const ApiKey = import.meta.env.VITE_APIKEY;
 
 export default function App() {
   //in React we use "hooks" like setState to define the state of changing variables.
@@ -55,7 +51,7 @@ export default function App() {
       //this is also good to reference and make it easier when writing the html to display it,
       //but we should remove it and ideally use better tools to view it after confirming operation as we could forget to remove it
       console.log(parsedData);
-      setCaption("This is " + data.captionResult.text);
+      setCaption("This is " + parsedData.captionResult.text);
     } catch (error) {
       console.error("There is an error during fetch:", error);
     }
@@ -79,11 +75,13 @@ export default function App() {
             />
           </div>
           <div class="flex justify-center p-10">
-            <img src={image} class="w-1/6 rounded "></img>
+            {/* shows the image when input into the search bar */}
+            <img src={image} class="w-1/6 rounded "></img>{" "}
           </div>
           <button class="pb-10" onClick={onButtonClick}>
             Search
           </button>
+          {/* displays the captionResult */}
           <h1 class="flex justify-center"> {caption}</h1>
         </div>
       </div>
