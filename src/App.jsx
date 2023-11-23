@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./index.css";
 
 const ApiKey = "e093b27ea1e64423807fbb02d1e50f59";
-const AzureEndpoint = "https://thevenardmission2.cognitiveservices.azure.com/";
+// const AzureEndpoint = "https://thevenardmission2.cognitiveservices.azure.com/";
 
 // const ApiKey = import.meta.env.REACT_APP_APIKEY;
 // const AzureEndpoint = import.meta.env.REACT_APP_ENDPOINT_URL;
@@ -44,7 +44,7 @@ export default function App() {
       //this url outlines what data we are requesting to be sent back, you can add more such as "denseCaptions"
       //check the Azure Analyze API documentation for the options
       const response = await fetch(
-        `${AzureEndpoint}computervision/imageanalysis:analyze?api-version=2023-02-01-preview&features=tags,caption,denseCaptions,objects`,
+        `https://thevenardmission2.cognitiveservices.azure.com/computervision/imageanalysis:analyze?api-version=2023-02-01-preview&features=tags,caption`,
         fetchOptions
       );
       //we need to parse the data with the .json() so we can do something with it
@@ -66,21 +66,25 @@ export default function App() {
       <div class="flex justify-center ">
         <div class="flex flex-col">
           <h1 class="p-10 flex justify-center text-2xl">Turners Cars</h1>
-          <p1 class="p-10">
+          <p1 class="pb-10">
             Enter an image URL of your car below and we will provide a
             description:
           </p1>
-          <input
-            class="p-10"
-            className="Input"
-            placeholder="image URL"
-            onChange={handleOnChange}
-            value={image}
-          />
-          <button class="p-10" onClick={onButtonClick}>
+          <div class="flex justify-center">
+            <input
+              class="pb-1 w-1/5 flex justify-center"
+              placeholder="image URL"
+              onChange={handleOnChange}
+              value={image}
+            />
+          </div>
+          <div class="flex justify-center p-10">
+            <img src={image} class="w-1/6 rounded "></img>
+          </div>
+          <button class="pb-10" onClick={onButtonClick}>
             Search
           </button>
-          <h1 className="Result"> {caption}</h1>
+          <h1 class="flex justify-center"> {caption}</h1>
         </div>
       </div>
     </div>
