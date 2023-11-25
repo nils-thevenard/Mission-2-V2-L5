@@ -58,7 +58,7 @@ export default function App() {
       <div class="flex justify-center ">
         <div class="flex flex-col">
           <h1 class="p-10 flex justify-center text-2xl">Turners Cars</h1>
-          <p1 class="pb-10">
+          <p1 class="pb-10 justify-center">
             Enter an image URL of your car below and we will provide a
             description:
           </p1>
